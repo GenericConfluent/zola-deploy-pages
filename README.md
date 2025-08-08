@@ -2,13 +2,14 @@
 If you want privacy you're best choice is probably
 [shalzz/zola-deploy-action](https://github.com/shalzz/zola-deploy-action/tree/master)
 
-## Use to Deploy to Pages Github action to installl zola with the builtin math
+Use to Deploy to Pages Github action to installl zola with the builtin math
 branch of cestef. I had some articles that needed this functionality and I don't
 want to wait anymore. The zola build is from
 [cestef/zola](https://github.com/cestef/zola/tree/feature/math-rendering) at
 commit `8f335f1`.
 
 ## Usage
+
 This approach also doesn't require creating an extra branch for the deployment
 so make sure to use set Pages to `Source: Github Actions`. The downside is that
 it doesn't allow for a private site source since the site repo needs to be
