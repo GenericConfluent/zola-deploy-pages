@@ -1,0 +1,42 @@
+name: "Build and Deploy Zola to Pages"
+description: "Deploy zola with cestef/zola math branch"
+author: "GenericConfluent"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Download Zola binary
+      shell: bash
+      run: |
+        wget -O /usr/local/bin/zola "https://github.com/GenericConfluent/zola-deploy-pages/releases/download/v0.21.0@cestef-zola/zola"
+        chmod +x /usr/local/bin/zola
+
+    - name: Get Zola version
+      id: get-version
+      shell: bash
+      run: |
+        version=$(zola --version)
+        echo "version=$version" >> $GITHUB_OUTPUT
+        echo "Installed: $version"
+
+    - name: Setup Pages
+      id: pages
+      uses: actions/configure-pages@v5
+
+    - name: Build with Zola
+      id: zola-build
+      shell: bash
+      run: |
+        /usr/local/bin/zola build --base-url "${{ steps.pages.outputs.base-url }}" --minify
+
+    - name: Upload Site Artifact
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: ./public
+
+    - name: Deploy Pages
+      uses: actions/deploy-pages@v4
+
+branding:
+  icon: "globe"
+  color: "blue"
